@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/public/styles/styles.css">
+  <link rel="stylesheet" href="https://cdn.lineicons.com/3.0/lineicons.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+  <script src="https://kit.fontawesome.com/90abbd5f29.js" crossorigin="anonymous"></script>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Titan+One&display=swap" rel="stylesheet">
+  <link rel="shortcut icon" href="/src/imgs/favicon/favicon.png" type="image/x-icon">
+  <script src="https://kit.fontawesome.com/90abbd5f29.js" crossorigin="anonymous"></script>
+  <title>Shingeki MemoTest</title>
+</head>
+
+<body>
+  <audio src="/src/sounds/snk-correct.mp3" id="correct"></audio>
+  <audio src="/src/sounds/snk-wrong.mp3" id="wrong"></audio>
+  <audio src="/src/sounds/snk-reset.wav" id="reset"></audio>
+  <audio src="/src/sounds/snk-reset-option.ogg" id="reset-option"></audio>
+  <audio src="/src/sounds/snk-scream-eren.mp3" id="scream-eren"></audio>
+  <audio src="/src/sounds/snk-scream-mikasa.mp3" id="scream-mikasa"></audio>
+  <audio src="/src/sounds/snk-card-flip.wav" id="card-flip"></audio>
+  <form id="form">
+    <div class="container">
+      <div class="row">
+        <div class="container-imagen">
+          <div class="logo">
+            <img src="/src/imgs/logo/logo4.png" class="snk-logo">
+          </div>
+        </div>
+      </div>
+      <div class="jugadas">
+        <div class="row">
+          <div class="col-6 puntaje">
+            <!-- <img src="/src/imgs/zoe.png" alt=""> -->
+            <label for="puntaje" id="puntaje" class="puntaje-maximo">Puntaje Máximo:</label>
+          </div>
+          <div class="col-6 max-intentos">
+            <!-- <img src="/src/imgs/titan1.png" alt=""> -->
+            <label for="max-intentos" id="max-intentos" class="intentos">Intentos:</label>
+          </div>
+        </div>
+      </div>
+      <div class="tablero-container">
+        <div class="memotest">
+          <div class="row">
+            <div class="col-lg-3 cards-container">
+              <img src="/src/imgs/cards/card-backwards.png" class="cards cards-size">
+              <img src="" class="card-front cards cards-size">
+            </div>
+            <div class="col-lg-3 cards-container">
+              <img src="/src/imgs/cards/card-backwards.png" class="cards cards-size">
+              <img src="" class="card-front cards cards-size">
+            </div>
+            <div class="col-lg-3 cards-container">
+              <img src="/src/imgs/cards/card-backwards.png" class="cards cards-size">
+              <img src="" class="card-front cards cards-size">
+            </div>
+            <div class="col-lg-3 cards-container">
+              <img src="/src/imgs/cards/card-backwards.png" class="cards cards-size">
+              <img src="" class="card-front cards cards-size">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-3 cards-container">
+              <img src="/src/imgs/cards/card-backwards.png" class="cards cards-size">
+              <img src="" class="card-front cards cards-size">
+            </div>
+            <div class="col-lg-3 cards-container">
+              <img src="/src/imgs/cards/card-backwards.png" class="cards cards-size">
+              <img src="" class="card-front cards cards-size">
+            </div>
+            <div class="col-lg-3 cards-container">
+              <img src="/src/imgs/cards/card-backwards.png" class="cards cards-size">
+              <img src="" class="card-front cards cards-size">
+            </div>
+            <div class="col-lg-3 cards-container">
+              <img src="/src/imgs/cards/card-backwards.png" class="cards cards-size">
+              <img src="" class="card-front cards cards-size">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-3 cards-container">
+              <img src="/src/imgs/cards/card-backwards.png" class="cards cards-size">
+              <img src="" class="card-front cards cards-size">
+            </div>
+            <div class="col-lg-3 cards-container">
+              <img src="/src/imgs/cards/card-backwards.png" class="cards cards-size">
+              <img src="" class="card-front cards cards-size">
+            </div>
+            <div class="col-lg-3 cards-container">
+              <img src="/src/imgs/cards/card-backwards.png" class="cards cards-size">
+              <img src="" class="card-front cards cards-size">
+            </div>
+            <div class="col-lg-3 cards-container">
+              <img src="/src/imgs/cards/card-backwards.png" class="card-back cards cards cards-size">
+              <img src="" class="card-front cards cards-size">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-3 cards-container">
+              <img src="/src/imgs/cards/card-backwards.png" class="cards cards-size">
+              <img src="" class="card-front cards cards-size">
+            </div>
+            <div class="col-lg-3 cards-container">
+              <img src="/src/imgs/cards/card-backwards.png" class="cards cards-size">
+              <img src="" class="card-front cards cards-size">
+            </div>
+            <div class="col-lg-3 cards-container">
+              <img src="/src/imgs/cards/card-backwards.png" class="cards cards-size">
+              <img src="" class="card-front cards cards-size">
+            </div>
+            <div class="col-lg-3 cards-container">
+              <img src="/src/imgs/cards/card-backwards.png" class="cards cards-size">
+              <img src="" class="card-front cards cards-size">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-1">
+        <div class="col-12">
+          <div class="btn-container">
+            <input type="button" value="Barajar" class="btn-barajar" id="boton">
+          </div>
+        </div>
+      </div>
+  </form>
+  <script src="/src/js/main.js"></script>
+</body>
+
+</html>

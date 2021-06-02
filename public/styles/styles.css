@@ -1,0 +1,81 @@
+body {
+  background-image: url(/src/imgs/gif.gif);
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+
+.fa-volume-up{
+  font-size: 2em;
+  color: #fff;
+}
+
+.fa-volume-mute {
+  font-size: 2em;
+  color: #fff;
+}
+
+.container-imagen {
+text-align: center;
+}
+
+.snk-logo {
+height: 167px;
+}
+
+.jugadas {
+  display: flex;
+  justify-content: space-around;
+}
+
+.puntaje-maximo {
+  width: 450px;
+  font-family: 'Titan One', cursive;
+  font-size: 1.3em;
+  color: #fff;
+}
+
+.intentos {
+  font-family: 'Titan One', cursive;
+  font-size: 1.3em;
+  color: #fff;
+}
+
+.tablero-container {
+  display: flex;
+  justify-content: center;
+}
+
+div.cards-container {
+  margin-top: 3px;
+}
+
+.cards-size {
+  width: 130px;
+}
+
+.btn-container {
+  display: flex;
+  justify-content: center;
+}
+
+/* .oculto {
+  display: none;
+} */
+
+.btn-barajar {
+  font-family: 'Bebas Neue', cursive;
+  background: linear-gradient(to bottom, #FFFFFF 0%, #cccccc 100%);
+  border-radius: 4px;
+  margin-top: 12px;
+  width: 60px;
+  color: #111;
+  border: none;
+  box-shadow: 0 8px 0 #999999;
+}
+
+.btn-barajar:hover {
+  color: red;
+  transition-delay: 13ms; 
+}
