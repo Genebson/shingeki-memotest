@@ -1,3 +1,8 @@
+* {
+  transition: all .3s ease;
+  user-select: none;
+}
+
 body {
   background-image: url(/src/imgs/gif.gif);
   background-size: cover;
@@ -48,21 +53,23 @@ height: 167px;
 }
 
 div.cards-container {
+  cursor: pointer;
   margin-top: 3px;
 }
 
 .cards-size {
   width: 130px;
+  border-radius: 4px;
+}
+
+.card-back {
+  transform: rotateY(360deg);
 }
 
 .btn-container {
   display: flex;
   justify-content: center;
 }
-
-/* .oculto {
-  display: none;
-} */
 
 .btn-barajar {
   font-family: 'Bebas Neue', cursive;
@@ -78,4 +85,9 @@ div.cards-container {
 .btn-barajar:hover {
   color: red;
   transition-delay: 13ms; 
+}
+
+#mensaje {
+  margin-top: 12px;
+  color: white
 }
