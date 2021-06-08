@@ -57,7 +57,7 @@ function voltearCartas(e) {
   })
 }
 
-function cartaRandom() {
+function cartaRandom(e) {
   const $imagenes = document.querySelectorAll('.cards')
   let number = Math.floor(Math.random() * (cardsFront.length))
 
