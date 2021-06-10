@@ -4,16 +4,18 @@ let secuenciaMaquina = []
 let secuenciaUsuario = []
 let intentos = 0
 
-const cardsFront = [
-  'src/imgs/cards/armin.jpg',
-  'src/imgs/cards/eren.jpg',
-  'src/imgs/cards/erwin.jpg',
-  'src/imgs/cards/historia.jpg',
-  'src/imgs/cards/levi.png',
-  'src/imgs/cards/mikasa.jpg',
-  'src/imgs/cards/reiner.jpg',
-  'src/imgs/cards/sasha.jpg'
+const cartas = [
+  { id: '1', src: 'src/imgs/cards/armin.jpg' },
+  { id: '2', src: 'src/imgs/cards/eren.jpg' },
+  { id: '3', src: 'src/imgs/cards/erwin.jpg' },
+  { id: '4', src: 'src/imgs/cards/historia.jpg' },
+  { id: '5', src: 'src/imgs/cards/levi.png' },
+  { id: '6', src: 'src/imgs/cards/mikasa.jpg' },
+  { id: '7', src: 'src/imgs/cards/reiner.jpg' },
+  { id: '8', src: 'src/imgs/cards/sasha.jpg' }
 ]
+
+const cartasUsadas = {}
 
 const resetSound = document.querySelector('#reset');
 const resetSoundOption = document.querySelector('#reset-option');
@@ -30,41 +32,33 @@ $form.boton.onclick = function () {
   ocultarBoton()
 }
 
-// $cards.onclick = function () {
-//   // $cards.classList.add('card-back')
-//   voltearCartas()
-//   cardFlipSound.play()
-//   cartaRandom()
-//   bloquearInputUsuario()
-// }
-
-const $cards = document.querySelectorAll('.cards-container')
+const $cards = document.querySelectorAll('.cards')
 $cards.forEach(function ($card) {
-  $card.onclick = function () {
-    cartaRandom()
+  $card.onclick = function (e) {
+    cartaRandom(e)
     cardFlipSound.play()
-    voltearCartas()
+    voltearCartas(e)
     // bloquearInputUsuario()
   }
 })
 
 function voltearCartas(e) {
-  const $imagenes = document.querySelector('.cards-container')
-
-  $imagenes.forEach(function ($imagen) {
-    if (e.target.classList.contains('cards'))
-      $imagen.classList.add('card-back')
-  })
+  const $card = e.target.classList.add('card-back')
 }
 
 function cartaRandom(e) {
-  const $imagenes = document.querySelectorAll('.cards')
-  let number = Math.floor(Math.random() * (cardsFront.length))
-
-  $imagenes.forEach(function ($imagen) {
-    $imagen.src = cardsFront[number]
-  })
+  const indice = Math.floor(Math.random() * cartas.length)
+  e.target.setAttribute('src', cartas[indice].src)
 }
+
+// const indice = Math.floor(Math.random() * cartas.length);
+// if (cartas[indice].id in dic && dic[cartas[indice].id] < 2) {
+//   ++dic[cartas[indice].id];
+//   e.target.setAttribute('src', cartas[indice].src)
+// } else {
+//   dic[cartas[indice].id] = 1;
+// }
+// console.log(dic);
 
 function compararCartas() {
 
