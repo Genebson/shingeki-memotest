@@ -1,6 +1,7 @@
 * {
   transition: all .3s ease;
   user-select: none;
+  font-family: 'Bebas Neue', cursive;
 }
 
 body {
@@ -9,6 +10,38 @@ body {
   background-position: center;
   background-attachment: fixed;
   background-repeat: no-repeat;
+}
+
+.github-corner:hover .octo-arm {
+  animation: octocat-wave 560ms ease-in-out
+}
+
+@keyframes octocat-wave {
+
+  0%,
+  100% {
+    transform: rotate(0)
+      }
+
+  20%,
+  60% {
+    transform: rotate(-25deg)
+  }
+
+  40%,
+  80% {
+    transform: rotate(10deg)
+  }
+}
+
+@media (max-width:500px) {
+  .github-corner:hover .octo-arm {
+    animation: none
+  }
+
+  .github-corner .octo-arm {
+    animation: octocat-wave 560ms ease-in-out
+  }
 }
 
 .fa-volume-up{
@@ -36,14 +69,12 @@ height: 167px;
 
 .puntaje-maximo {
   width: 450px;
-  font-family: 'Titan One', cursive;
-  font-size: 1.3em;
+  font-size: 1.4em;
   color: #fff;
 }
 
 .intentos {
-  font-family: 'Titan One', cursive;
-  font-size: 1.3em;
+  font-size: 1.4em;
   color: #fff;
 }
 
@@ -89,5 +120,6 @@ div.cards-container {
 
 #mensaje {
   margin-top: 12px;
+  font-size: 1.4em;
   color: white
 }
