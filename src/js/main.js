@@ -1,21 +1,18 @@
 const $form = document.querySelector('#form')
 
-let secuenciaMaquina = []
-let secuenciaUsuario = []
 let intentos = 0
+const primerClick = null
 
 const cartas = [
-  { id: '1', src: 'src/imgs/cards/armin.jpg' },
-  { id: '2', src: 'src/imgs/cards/eren.jpg' },
-  { id: '3', src: 'src/imgs/cards/erwin.jpg' },
-  { id: '4', src: 'src/imgs/cards/historia.jpg' },
-  { id: '5', src: 'src/imgs/cards/levi.png' },
-  { id: '6', src: 'src/imgs/cards/mikasa.jpg' },
-  { id: '7', src: 'src/imgs/cards/reiner.jpg' },
-  { id: '8', src: 'src/imgs/cards/sasha.jpg' }
+  { nombre: 'armin', id: '1', src: 'src/imgs/cards/armin.jpg', times: 0 },
+  { nombre: 'eren', id: '2', src: 'src/imgs/cards/eren.jpg', times: 0 },
+  { nombre: 'erwin', id: '3', src: 'src/imgs/cards/erwin.jpg', times: 0 },
+  { nombre: 'historia', id: '4', src: 'src/imgs/cards/historia.jpg', times: 0 },
+  { nombre: 'levi', id: '5', src: 'src/imgs/cards/levi.png', times: 0 },
+  { nombre: 'mikasa', id: '6', src: 'src/imgs/cards/mikasa.jpg', times: 0 },
+  { nombre: 'reiner', id: '7', src: 'src/imgs/cards/reiner.jpg', times: 0 },
+  { nombre: 'sasha', id: '8', src: 'src/imgs/cards/sasha.jpg', times: 0 }
 ]
-
-const cartasUsadas = {}
 
 const resetSound = document.querySelector('#reset');
 const resetSoundOption = document.querySelector('#reset-option');
@@ -32,35 +29,32 @@ $form.boton.onclick = function () {
   ocultarBoton()
 }
 
-const $cards = document.querySelectorAll('.cards')
-$cards.forEach(function ($card) {
-  $card.onclick = function (e) {
-    cartaRandom(e)
+const $cartas = document.querySelectorAll('.cards')
+$cartas.forEach(function ($carta) {
+  $carta.onclick = function (e) {
+    cartaRandom(e, $carta)
     cardFlipSound.play()
     voltearCartas(e)
-    // bloquearInputUsuario()
+    mensajeAutomatico(mensajeCartasIguales())
   }
 })
 
 function voltearCartas(e) {
-  const $card = e.target.classList.add('card-back')
+  e.target.classList.add('card-back')
 }
 
-function cartaRandom(e) {
-  const indice = Math.floor(Math.random() * cartas.length)
-  e.target.setAttribute('src', cartas[indice].src)
+function cartaRandom(e, $carta) {
+  const cartasFiltradas = cartas.filter(carta => carta.times < 2)
+  const indice = Math.floor(Math.random() * cartasFiltradas.length)
+  const index = cartas.indexOf(cartasFiltradas[indice])
+  ++cartas[index].times
+  console.log(cartas[index].times);
+  console.log(cartas[index].nombre);
+  e.target.setAttribute('src', cartasFiltradas[indice].src)
+  $carta.onclick = null
 }
 
-// const indice = Math.floor(Math.random() * cartas.length);
-// if (cartas[indice].id in dic && dic[cartas[indice].id] < 2) {
-//   ++dic[cartas[indice].id];
-//   e.target.setAttribute('src', cartas[indice].src)
-// } else {
-//   dic[cartas[indice].id] = 1;
-// }
-// console.log(dic);
-
-function compararCartas() {
+function compararCartas($carta) {
 
 }
 
@@ -68,21 +62,16 @@ function intentosMaximos(intentos) {
   document.querySelector('#max-intentos').value = intentos
 }
 
-function bloquearInputUsuario() {
-  const $cards = document.querySelectorAll('.cards')
-
-  $cards.forEach(function ($card) {
-    $card.onclick = function () {
-      console.log('block');
-    }
-  })
+function bloquearCartaClickeada($carta) {
+  $carta.onclick = function () {
+  }
 }
 
-function desbloquearInputUsuario() {
-  const $cards = document.querySelectorAll('.cards')
+function desbloquearCarta() {
+  const $cartas = document.querySelectorAll('.cards')
 
-  $cards.forEach(function ($card) {
-    $card.onclick = manejarInputUsuario()
+  $cartas.forEach(function ($carta) {
+    $carta.onclick = manejarInputUsuario()
   })
 }
 
@@ -97,24 +86,28 @@ function mensajeCartaErronea() {
     'Ooooooole 😂',
     'Dale, vos podes 🙃',
     'Esa no era, pero está cerca 🤫',
-    '',
-    '',
+    'Uuuy, casi 🥴',
+    'Ooooole 🤭',
   ]
 
   const fraseAleatoria = Math.floor(Math.random() * (frases.length - 1))
   return frases[fraseAleatoria]
 }
 
-function mensajeCartaCorrecta() {
-  const frases = [
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-  ]
+function mensajeCartasIguales() {
+  let nombresPersonajes
 
+  cartas.forEach(function (carta, i) {
+    nombresPersonajes = cartas[i].nombre
+  })
+  const frases = [
+    `Wow es ${nombresPersonajes}`,
+    `Adivinaste, ahí estaba ${nombresPersonajes}🤺!`,
+    `Esaaa, se hizo desear ${nombresPersonajes} 🧐`,
+    `Bien, encontraste a ${nombresPersonajes} 🥳!`,
+    `Ojo con ${nombresPersonajes}`,
+    `Bravo es ${nombresPersonajes}`,
+  ]
   const fraseAleatoria = Math.floor(Math.random() * (frases.length - 1))
   return frases[fraseAleatoria]
 }
