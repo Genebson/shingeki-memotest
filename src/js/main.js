@@ -67,14 +67,6 @@ function bloquearCartaClickeada($carta) {
   }
 }
 
-function desbloquearCarta() {
-  const $cartas = document.querySelectorAll('.cards')
-
-  $cartas.forEach(function ($carta) {
-    $carta.onclick = manejarInputUsuario()
-  })
-}
-
 function mensajeAutomatico(mensaje) {
   const $p = document.querySelector('#mensaje')
   $p.innerText = mensaje
