@@ -78,6 +78,14 @@ height: 167px;
   color: #fff;
 }
 
+#puntaje {
+  width: 40%;
+  font-size: 1.4em;
+  background: transparent; 
+  border: none;
+  color: #fff;
+}
+
 .tablero-container {
   display: flex;
   justify-content: center;

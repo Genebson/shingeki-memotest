@@ -1,7 +1,7 @@
 const $form = document.querySelector('#form')
 const $memotest = document.querySelector('#memotest')
 const $cartas = document.querySelectorAll('.cards')
-
+const cartaEspalda = 'src/imgs/cards/card-backwards.png'
 const cartas = [
   { nombre: 'armin', id: '1', src: 'src/imgs/cards/armin.jpg' },
   { nombre: 'eren', id: '2', src: 'src/imgs/cards/eren.jpg' },
@@ -14,7 +14,8 @@ const cartas = [
 ]
 
 let intentos = 0
-let cantidadClicks = []
+let puntaje = 0
+let $elementosVolteados = []
 
 const resetSound = document.querySelector('#reset');
 const resetSoundOption = document.querySelector('#reset-option');
@@ -36,72 +37,82 @@ function mezclarCartas() {
   const cartasRandom = cartasDuplicadas.sort(function () { return 0.5 - Math.random() })
 
   for (let i = 0; i < cartasRandom.length; i++) {
-    $cartas[i].src = cartasRandom[i].src
-    console.log($cartas[i].src);
+    $cartas[i].dataset.id = cartasRandom[i].id
+    // $cartas[i].dataset.nombre = cartasRandom[i].nombre
+    console.log($cartas[i].dataset.id);
   }
 }
 
 function voltearCartas(e) {
-  const carta = e.currentTarget
-  if (carta.className === 'cards cards-size') {
-    carta.classList.add('card-back')
+  const $carta = e.currentTarget
+  const cartaData = cartas.find(carta => carta.id === $carta.dataset.id)
+
+  if ($carta.className === 'cards cards-size') {
+    $carta.classList.add('card-back')
     cardFlipSound.play()
+    $carta.src = cartaData.src
   } else {
-    carta.className == "cards cards-size"
+    $carta.className == "cards cards-size"
   }
 
-  cantidadClicks.push(carta)
-  console.log(cantidadClicks);
-  console.log(cantidadClicks[0], 'primer elemento');
-  console.log(cantidadClicks[1], 'segundo elemento');
-  if (cantidadClicks.length === 2) {
-    compararCartas()
+  $elementosVolteados.push($carta)
+  console.log($elementosVolteados);
+  if ($elementosVolteados.length === 2) {
+    compararCartas(e)
   }
 }
 
-function compararCartas() {
-  const eliminarElemento = cantidadClicks.pop()
-  const primerClick = cantidadClicks[0].src
-  console.log(primerClick);
-  const segundoClick = cantidadClicks[1]
-  console.log(segundoClick);
-  const primeraCarta = primerClick.querySelector('cards cards-size')[0].src
-  const segundaCarta = segundoClick.querySelector('cards cards-size')[0].src
+function eliminarElementos() {
+  $elementosVolteados = []
+}
 
-  console.log(primeraCarta);
+function compararCartas(e) {
+  let $primeraId = $elementosVolteados[0].dataset.id
+  let $segundaId = $elementosVolteados[1].dataset.id
+  console.log($primeraId);
+  console.log($segundaId);
+  if ($primeraId === $segundaId) {
+    setTimeout(function () {
+      console.log('entro al if');
+      bloquearCartaClickeada()
+    }, 500)
+    puntaje++
+    actualizarPuntaje(puntaje)
+    mensajeAutomatico(mensajeCartasIguales())
+    compararPersonajes()
+    eliminarElementos()
+  } else if ($primeraId !== $segundaId) {
+    setTimeout(function () {
+      console.log('entro al else if');
+      $primeraId, $segundaId = ocultarCartas(e)
+      console.log('desp de ocultar carta');
+      // eliminarElementos()
+    }, 500)
+    intentos++
+  }
+}
 
-  if (primerClick !== segundoClick && primeraCarta === segundaCarta) {
-    setTimeout(function () {
-      primerClick.className = 'cards cards-size'
-      segundoClick.className = 'cards cards-size'
-    }, 500)
-    eliminarElemento
-    eliminarElemento
-  } else if (primeraCarta !== segundaCarta) {
-    setTimeout(function () {
-      primeraCarta, segundaCarta = ocultarCartas()
-    }, 500)
-    eliminarElemento
-    eliminarElemento
-  } else if (primeraCarta === segundaCarta && primerClick === segundoClick) {
-    eliminarElemento
-    eliminarElemento
+function compararPersonajes() {
+  const segundaCartaId = $elementosVolteados[1].dataset.id
+  const segundaCartaData = cartas.find(carta => carta.id === segundaCartaId)
+  if (segundaCartaData.nombre === 'eren') {
+    screamErenSound.volume = 1
+    screamErenSound.play()
+  } else if (segundaCartaData.nombre === 'mikasa') {
+    screamMikasaSound.volume = 1
+    screamMikasaSound.play()
   }
 }
 
 function ocultarCartas(e) {
   setTimeout(function () {
-    e.target.classList.remove('card-back');
+    e.target.classList.remove('card-back')
   }, 500)
 }
 
-function bloquearCartaClickeada($carta) {
-  $carta.onclick = function () {
-  }
-}
-
-function intentosMaximos(intentos) {
-  document.querySelector('#max-intentos').value = intentos
+function bloquearCartaClickeada() {
+  $elementosVolteados[0].removeEventListener('click', voltearCartas);
+  $elementosVolteados[1].removeEventListener('click', voltearCartas);
 }
 
 function mensajeAutomatico(mensaje) {
@@ -124,21 +135,29 @@ function mensajeCartaErronea() {
 }
 
 function mensajeCartasIguales() {
-  let nombresPersonajes
+  const segundaCartaId = $elementosVolteados[1].dataset.id
+  const segundaCartaData = cartas.find(carta => carta.id === segundaCartaId)
 
-  cartas.forEach(function (carta, i) {
-    nombresPersonajes = cartas[i].nombre
-  })
   const frases = [
-    `Wow es ${nombresPersonajes}`,
-    `Adivinaste, ahí estaba ${nombresPersonajes}🤺!`,
-    `Esaaa, se hizo desear ${nombresPersonajes} 🧐`,
-    `Bien, encontraste a ${nombresPersonajes} 🥳!`,
-    `Ojo con ${nombresPersonajes}`,
-    `Bravo es ${nombresPersonajes}`,
+    `Wow es ${segundaCartaData.nombre}`,
+    `Adivinaste, ahí estaba ${segundaCartaData.nombre}🤺!`,
+    `Esaaa, se hizo desear ${segundaCartaData.nombre} 🧐`,
+    `Bien, encontraste a ${segundaCartaData.nombre} 🥳!`,
+    `Encontraste a ${segundaCartaData.nombre} 👈🏻`,
+    `Bravo es ${segundaCartaData.nombre}`,
   ]
   const fraseAleatoria = Math.floor(Math.random() * (frases.length - 1))
+
   return frases[fraseAleatoria]
+}
+
+function intentosMaximos(intentos) {
+  document.querySelector('#max-intentos').value = intentos
+}
+
+function actualizarPuntaje(puntaje) {
+  $form.puntaje.value = puntaje
+  // correctSound.play()
 }
 
 function mensajePerdedor() {
@@ -179,3 +198,4 @@ function ocultarBoton() {
 }
 
 $cartas.forEach(function ($carta) { $carta.addEventListener('click', voltearCartas) })
+mezclarCartas()
