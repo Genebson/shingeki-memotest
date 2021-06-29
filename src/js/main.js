@@ -18,16 +18,23 @@ let puntaje = 0
 let $elementosVolteados = []
 
 const resetSound = document.querySelector('#reset');
-const resetSoundOption = document.querySelector('#reset-option');
 const correctSound = document.querySelector('#correct');
 const wrongSound = document.querySelector('#wrong');
 const screamErenSound = document.querySelector('#scream-eren');
 const screamMikasaSound = document.querySelector('#scream-mikasa');
+const screamErwinSound = document.querySelector('#scream-erwin');
+const screamLeviSound = document.querySelector('#scream-levi');
+const screamHistoriaSound = document.querySelector('#scream-historia');
+const screamSashaSound = document.querySelector('#scream-sasha');
+const screamArminSound = document.querySelector('#scream-armin');
+const screamReinerSound = document.querySelector('#scream-reiner');
 const cardFlipSound = document.querySelector('#card-flip');
+const victoriaSound = document.querySelector('#victoria');
+const derrotaSound = document.querySelector('#derrota')
 
 $form.boton.onclick = function () {
-  resetSoundOption.play()
-  resetSoundOption.volume = 0.6
+  resetSound.play()
+  resetSound.volume = 0.6
   ocultarBoton()
   mensajeAutomatico('¡Comencemos! 🔮')
 }
@@ -38,7 +45,6 @@ function mezclarCartas() {
 
   for (let i = 0; i < cartasRandom.length; i++) {
     $cartas[i].dataset.id = cartasRandom[i].id
-    // $cartas[i].dataset.nombre = cartasRandom[i].nombre
     console.log($cartas[i].dataset.id);
   }
 }
@@ -56,9 +62,8 @@ function voltearCartas(e) {
   }
 
   $elementosVolteados.push($carta)
-  console.log($elementosVolteados);
   if ($elementosVolteados.length === 2) {
-    compararCartas(e)
+    compararCartas()
   }
 }
 
@@ -66,53 +71,76 @@ function eliminarElementos() {
   $elementosVolteados = []
 }
 
-function compararCartas(e) {
+function compararCartas() {
   let $primeraId = $elementosVolteados[0].dataset.id
   let $segundaId = $elementosVolteados[1].dataset.id
-  console.log($primeraId);
-  console.log($segundaId);
+
   if ($primeraId === $segundaId) {
     setTimeout(function () {
-      console.log('entro al if');
-      bloquearCartaClickeada()
+      eliminarElementos()
+      puntaje++
+      actualizarPuntaje(puntaje)
+      correctSound.play()
     }, 500)
-    puntaje++
-    actualizarPuntaje(puntaje)
+    bloquearCartasClickeadas()
     mensajeAutomatico(mensajeCartasIguales())
     compararPersonajes()
-    eliminarElementos()
   } else if ($primeraId !== $segundaId) {
     setTimeout(function () {
-      console.log('entro al else if');
-      $primeraId, $segundaId = ocultarCartas(e)
-      console.log('desp de ocultar carta');
-      // eliminarElementos()
+      $primeraId, $segundaId = ocultarCartas()
+      intentos++
+      intentosMaximos(intentos)
+      eliminarElementos()
+      wrongSound.play()
     }, 500)
-    intentos++
+    mensajeAutomatico(mensajeCartaErronea())
   }
 }
 
 function compararPersonajes() {
   const segundaCartaId = $elementosVolteados[1].dataset.id
   const segundaCartaData = cartas.find(carta => carta.id === segundaCartaId)
+
   if (segundaCartaData.nombre === 'eren') {
     screamErenSound.volume = 1
     screamErenSound.play()
   } else if (segundaCartaData.nombre === 'mikasa') {
     screamMikasaSound.volume = 1
     screamMikasaSound.play()
+  } else if (segundaCartaData.nombre === 'armin') {
+    screamArminSound.volume = 1
+    screamArminSound.play()
+  } else if (segundaCartaData.nombre === 'reiner') {
+    screamReinerSound.volume = 1
+    screamReinerSound.play()
+  } else if (segundaCartaData.nombre === 'levi') {
+    screamLeviSound.volume = 1
+    screamLeviSound.play()
+  } else if (segundaCartaData.nombre === 'historia') {
+    screamHistoriaSound.volume = 1
+    screamHistoriaSound.play()
+  } else if (segundaCartaData.nombre === 'sasha') {
+    screamSashaSound.volume = 1
+    screamSashaSound.play()
+  } else if (segundaCartaData.nombre === 'erwin') {
+    screamErwinSound.volume = 0.5
+    screamErwinSound.play()
   }
 }
 
-function ocultarCartas(e) {
-  setTimeout(function () {
-    e.target.classList.remove('card-back')
-  }, 500)
+function ocultarCartas() {
+  const $primerElemento = document.querySelector(`[src="${$elementosVolteados[0].getAttribute('src')}"]`)
+  const $segundoElemento = document.querySelector(`[src="${$elementosVolteados[1].getAttribute('src')}"]`)
+
+  $primerElemento.classList.remove('card-back')
+  $segundoElemento.classList.remove('card-back')
+  $primerElemento.setAttribute('src', cartaEspalda)
+  $segundoElemento.setAttribute('src', cartaEspalda)
 }
 
-function bloquearCartaClickeada() {
-  $elementosVolteados[0].removeEventListener('click', voltearCartas);
-  $elementosVolteados[1].removeEventListener('click', voltearCartas);
+function bloquearCartasClickeadas() {
+  $elementosVolteados[0].removeEventListener('click', voltearCartas)
+  $elementosVolteados[1].removeEventListener('click', voltearCartas)
 }
 
 function mensajeAutomatico(mensaje) {
@@ -139,53 +167,84 @@ function mensajeCartasIguales() {
   const segundaCartaData = cartas.find(carta => carta.id === segundaCartaId)
 
   const frases = [
-    `Wow es ${segundaCartaData.nombre}`,
+    `Wow es ${segundaCartaData.nombre} ✨`,
     `Adivinaste, ahí estaba ${segundaCartaData.nombre}🤺!`,
     `Esaaa, se hizo desear ${segundaCartaData.nombre} 🧐`,
     `Bien, encontraste a ${segundaCartaData.nombre} 🥳!`,
     `Encontraste a ${segundaCartaData.nombre} 👈🏻`,
-    `Bravo es ${segundaCartaData.nombre}`,
+    `Bravo es ${segundaCartaData.nombre} 👏🏻`,
   ]
   const fraseAleatoria = Math.floor(Math.random() * (frases.length - 1))
 
+  return frases[fraseAleatoria]
+}
+
+function mensajeCartaErronea() {
+  const segundaCartaId = $elementosVolteados[0].dataset.id
+  const segundaCartaData = cartas.find(carta => carta.id === segundaCartaId)
+
+  const frases = [
+    `Ooole, ahí no está ${segundaCartaData.nombre} 🤭`,
+    `No se parece en nada a ${segundaCartaData.nombre} 🤔`,
+    `Casi, pero no es ${segundaCartaData.nombre} 🥱`,
+    `Seguí intentando, ya va a aparecer ${segundaCartaData.nombre} 😢`,
+    `Justo ahí, ${segundaCartaData.nombre} no está 😣`,
+    `${segundaCartaData.nombre} 404 not found ❌`,
+  ]
+
+  const fraseAleatoria = Math.floor(Math.random() * (frases.length - 1))
   return frases[fraseAleatoria]
 }
 
 function intentosMaximos(intentos) {
-  document.querySelector('#max-intentos').value = intentos
+  document.querySelector('#intentos-valor').value = intentos
+  if (intentos === 10) {
+    terminarJuego()
+  }
 }
 
 function actualizarPuntaje(puntaje) {
   $form.puntaje.value = puntaje
-  // correctSound.play()
+  if (puntaje === 8) {
+    terminarJuego()
+  }
 }
 
-function mensajePerdedor() {
-  const frases = [
-    'Te quedaste sin intentos 😪',
-    'Perdiste 😞',
-    'Perdiste pero la próxima es tuya, dale 😉',
-    'Nooooo 😢',
-    'Se acabó el tiempo ⌛',
-    'Intentá otra vez 🥺',
-  ]
-
-  const fraseAleatoria = Math.floor(Math.random() * (frases.length - 1))
-  return frases[fraseAleatoria]
-}
-
-function mensajeGanador() {
-  const frases = [
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-  ]
-
-  const fraseAleatoria = Math.floor(Math.random() * (frases.length - 1))
-  return frases[fraseAleatoria]
+function terminarJuego() {
+  const $body = document.querySelector('body')
+  const $jugadas = document.querySelector('#jugadas')
+  const $p = document.querySelector('#mensaje')
+  if (puntaje === 8) {
+    ocultarBoton()
+    $memotest.style.display = 'none'
+    $jugadas.style.display = 'none'
+    $form.boton.style.display = 'none'
+    $p.innerText = '¡GANASTE! 🥳'
+    $p.style.fontSize = '4em'
+    setTimeout(function () {
+      $p.style.display = 'none'
+    }, 1900)
+    $body.style.backgroundImage = "url('./src/imgs/victoria.gif')"
+    victoriaSound.play()
+    setTimeout(function () {
+      location.reload();
+    }, 14000)
+  } else if (intentos === 10) {
+    ocultarBoton()
+    $memotest.style.display = 'none'
+    $jugadas.style.display = 'none'
+    $form.boton.style.display = 'none'
+    $p.innerText = '¡PERDISTE! 👎🏻'
+    $p.style.fontSize = '4em'
+    setTimeout(function () {
+      $p.style.display = 'none'
+    }, 1900)
+    $body.style.backgroundImage = "url('./src/imgs/derrota.gif')"
+    derrotaSound.play()
+    setTimeout(function () {
+      location.reload();
+    }, 14000)
+  }
 }
 
 function mostrarBoton() {

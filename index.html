@@ -15,17 +15,24 @@
   <link href="https://fonts.googleapis.com/css2?family=Titan+One&display=swap" rel="stylesheet">
   <link rel="shortcut icon" href="./src/imgs/favicon/favicon.png" type="image/x-icon">
   <script src="https://kit.fontawesome.com/90abbd5f29.js" crossorigin="anonymous"></script>
-  <title>Shingeki MemoTest</title>
+  <title>Shingeki Memotest</title>
 </head>
 
 <body>
   <audio src="./src/sounds/snk-correct.mp3" id="correct"></audio>
   <audio src="./src/sounds/snk-wrong.mp3" id="wrong"></audio>
-  <audio src="./src/sounds/snk-reset.wav" id="reset"></audio>
-  <audio src="./src/sounds/snk-reset-option.ogg" id="reset-option"></audio>
+  <audio src="./src/sounds/snk-reset-option.ogg" id="reset"></audio>
   <audio src="./src/sounds/snk-scream-eren.mp3" id="scream-eren"></audio>
   <audio src="./src/sounds/snk-scream-mikasa.mp3" id="scream-mikasa"></audio>
+  <audio src="./src/sounds/snk-scream-erwin.mp3" id="scream-erwin"></audio>
+  <audio src="./src/sounds/snk-scream-levi.mp3" id="scream-levi"></audio>
+  <audio src="./src/sounds/snk-scream-historia.mp3" id="scream-historia"></audio>
+  <audio src="./src/sounds/snk-scream-sasha.mp3" id="scream-sasha"></audio>
+  <audio src="./src/sounds/snk-scream-armin.mp3" id="scream-armin"></audio>
+  <audio src="./src/sounds/snk-scream-reiner.mp3" id="scream-reiner"></audio>
   <audio src="./src/sounds/snk-card-flip.wav" id="card-flip"></audio>
+  <audio src="./src/sounds/snk-victoria.mp3" id="victoria" loop="loop"></audio>
+  <audio src="./src/sounds/snk-derrota.mp3" id="derrota"></audio>
   <form id="form">
     <a href="https://github.com/genebson/shingeki-memotest" class="github-corner" target="_blank"
       aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250"
@@ -48,14 +55,16 @@
           </div>
         </div>
       </div>
-      <div class="jugadas">
+      <div class="jugadas" id="jugadas">
         <div class="row">
           <div class="col-6 puntaje">
-            <label for="puntaje" id="puntaje" class="puntaje-maximo">Puntaje:</label>
-            <input type="text" name="puntaje" id="puntaje" class="puntaje-ronda" value="0" disabled>
+            <label for="puntaje" id="puntaje-texto" class="puntaje-maximo">Puntaje:</label>
+            <input type="text" name="puntaje" id="puntaje-valor" class="puntaje-ronda" value="0" disabled>
           </div>
           <div class="col-6 max-intentos">
-            <label for="max-intentos" id="max-intentos" class="intentos">Intentos: 0/10</label>
+            <label for="max-intentos" id="intentos-texto" class="intentos-texto">Intentos:</label>
+            <input type="text" name="intentos" id="intentos-valor" class="puntaje-ronda" value="0" disabled>
+            <label for="max-intentos" id="intentos-diez" class="intentos-diez">/10</label>
           </div>
         </div>
       </div>

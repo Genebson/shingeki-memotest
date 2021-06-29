@@ -73,13 +73,20 @@ height: 167px;
   color: #fff;
 }
 
-.intentos {
+.intentos-texto,
+.intentos-valor,
+.intentos-diez {
   font-size: 1.4em;
   color: #fff;
 }
 
-#puntaje {
-  width: 40%;
+#puntaje-texto {
+    width: 22%;
+}
+
+#puntaje-valor,
+#intentos-valor {
+  width: 5%;
   font-size: 1.4em;
   background: transparent; 
   border: none;
