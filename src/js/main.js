@@ -62,6 +62,7 @@ function voltearCartas(e) {
   }
 
   $elementosVolteados.push($carta)
+  $carta.removeEventListener('click', voltearCartas)
   if ($elementosVolteados.length === 2) {
     compararCartas()
   }
@@ -136,6 +137,8 @@ function ocultarCartas() {
   $segundoElemento.classList.remove('card-back')
   $primerElemento.setAttribute('src', cartaEspalda)
   $segundoElemento.setAttribute('src', cartaEspalda)
+  $primerElemento.addEventListener('click', voltearCartas)
+  $segundoElemento.addEventListener('click', voltearCartas)
 }
 
 function bloquearCartasClickeadas() {
