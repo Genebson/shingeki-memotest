@@ -1,7 +1,7 @@
 const $form = document.querySelector('#form')
 const $memotest = document.querySelector('#memotest')
 const $cartas = document.querySelectorAll('.cards')
-const cartaEspalda = 'src/imgs/cards/card-backwards.png'
+const cartaDeEspalda = 'src/imgs/cards/card-backwards.png'
 const cartas = [
   { nombre: 'armin', id: '1', src: 'src/imgs/cards/armin.jpg' },
   { nombre: 'eren', id: '2', src: 'src/imgs/cards/eren.jpg' },
@@ -32,20 +32,12 @@ const cardFlipSound = document.querySelector('#card-flip');
 const victoriaSound = document.querySelector('#victoria');
 const derrotaSound = document.querySelector('#derrota')
 
-$form.boton.onclick = function () {
-  resetSound.play()
-  resetSound.volume = 0.6
-  ocultarBoton()
-  mensajeAutomatico('¡Comencemos! 🔮')
-}
-
 function mezclarCartas() {
   const cartasDuplicadas = cartas.concat(cartas)
   const cartasRandom = cartasDuplicadas.sort(function () { return 0.5 - Math.random() })
 
   for (let i = 0; i < cartasRandom.length; i++) {
     $cartas[i].dataset.id = cartasRandom[i].id
-    console.log($cartas[i].dataset.id);
   }
 }
 
@@ -135,8 +127,8 @@ function ocultarCartas() {
 
   $primerElemento.classList.remove('card-back')
   $segundoElemento.classList.remove('card-back')
-  $primerElemento.setAttribute('src', cartaEspalda)
-  $segundoElemento.setAttribute('src', cartaEspalda)
+  $primerElemento.setAttribute('src', cartaDeEspalda)
+  $segundoElemento.setAttribute('src', cartaDeEspalda)
   $primerElemento.addEventListener('click', voltearCartas)
   $segundoElemento.addEventListener('click', voltearCartas)
 }
@@ -218,10 +210,8 @@ function terminarJuego() {
   const $jugadas = document.querySelector('#jugadas')
   const $p = document.querySelector('#mensaje')
   if (puntaje === 8) {
-    ocultarBoton()
     $memotest.style.display = 'none'
     $jugadas.style.display = 'none'
-    $form.boton.style.display = 'none'
     $p.innerText = '¡GANASTE! 🥳'
     $p.style.fontSize = '4em'
     setTimeout(function () {
@@ -233,10 +223,8 @@ function terminarJuego() {
       location.reload();
     }, 14000)
   } else if (intentos === 10) {
-    ocultarBoton()
     $memotest.style.display = 'none'
     $jugadas.style.display = 'none'
-    $form.boton.style.display = 'none'
     $p.innerText = '¡PERDISTE! 👎🏻'
     $p.style.fontSize = '4em'
     setTimeout(function () {
@@ -248,15 +236,6 @@ function terminarJuego() {
       location.reload();
     }, 14000)
   }
-}
-
-function mostrarBoton() {
-  boton.className = 'btn-barajar';
-  boton.value = 'reiniciar'
-}
-
-function ocultarBoton() {
-  boton.className = 'd-none'
 }
 
 $cartas.forEach(function ($carta) { $carta.addEventListener('click', voltearCartas) })
