@@ -142,20 +142,6 @@ function mensajeAutomatico(mensaje) {
   $p.innerText = mensaje
 }
 
-function mensajeCartaErronea() {
-  const frases = [
-    'Nop, casi 🙄',
-    'Ooooooole 😂',
-    'Dale, vos podes 🙃',
-    'Esa no era, pero está cerca 🤫',
-    'Uuuy, casi 🥴',
-    'Ooooole 🤭',
-  ]
-
-  const fraseAleatoria = Math.floor(Math.random() * (frases.length - 1))
-  return frases[fraseAleatoria]
-}
-
 function mensajeCartasIguales() {
   const segundaCartaId = $elementosVolteados[1].dataset.id
   const segundaCartaData = cartas.find(carta => carta.id === segundaCartaId)
