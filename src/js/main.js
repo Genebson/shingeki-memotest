@@ -154,7 +154,7 @@ function mensajeCartasIguales() {
     `Encontraste a ${segundaCartaData.nombre} 👈🏻`,
     `Bravo es ${segundaCartaData.nombre} 👏🏻`,
   ]
-  const fraseAleatoria = Math.floor(Math.random() * (frases.length - 1))
+  const fraseAleatoria = Math.floor(Math.random() * frases.length)
 
   return frases[fraseAleatoria]
 }
@@ -172,7 +172,7 @@ function mensajeCartaErronea() {
     `${segundaCartaData.nombre} 404 not found ❌`,
   ]
 
-  const fraseAleatoria = Math.floor(Math.random() * (frases.length - 1))
+  const fraseAleatoria = Math.floor(Math.random() * frases.length)
   return frases[fraseAleatoria]
 }
 
