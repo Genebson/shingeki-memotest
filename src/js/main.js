@@ -17,7 +17,6 @@ let intentos = 0
 let puntaje = 0
 let $elementosVolteados = []
 
-const resetSound = document.querySelector('#reset');
 const correctSound = document.querySelector('#correct');
 const wrongSound = document.querySelector('#wrong');
 const screamErenSound = document.querySelector('#scream-eren');
@@ -209,9 +208,11 @@ function terminarJuego() {
   const $body = document.querySelector('body')
   const $jugadas = document.querySelector('#jugadas')
   const $p = document.querySelector('#mensaje')
+  const $githubContainer = document.querySelector('#github')
   if (puntaje === 8) {
     $memotest.style.display = 'none'
     $jugadas.style.display = 'none'
+    $githubContainer.style.display = 'none'
     $p.innerText = '¡GANASTE! 🥳'
     $p.style.fontSize = '4em'
     setTimeout(function () {
@@ -225,6 +226,7 @@ function terminarJuego() {
   } else if (intentos === 10) {
     $memotest.style.display = 'none'
     $jugadas.style.display = 'none'
+    $githubContainer.style.display = 'none'
     $p.innerText = '¡PERDISTE! 👎🏻'
     $p.style.fontSize = '4em'
     setTimeout(function () {

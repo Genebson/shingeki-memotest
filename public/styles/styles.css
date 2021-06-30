@@ -112,25 +112,9 @@ div.cards-container {
   transform: rotateY(360deg);
 }
 
-.btn-container {
+.mensaje-container {
   display: flex;
   justify-content: center;
-}
-
-.btn-barajar {
-  font-family: 'Bebas Neue', cursive;
-  background: linear-gradient(to bottom, #FFFFFF 0%, #cccccc 100%);
-  border-radius: 4px;
-  margin-top: 12px;
-  width: 60px;
-  color: #111;
-  border: none;
-  box-shadow: 0 8px 0 #999999;
-}
-
-.btn-barajar:hover {
-  color: red;
-  transition-delay: 13ms; 
 }
 
 #mensaje {
@@ -138,3 +122,44 @@ div.cards-container {
   font-size: 1.4em;
   color: white
 }
+
+.github {
+  display: none
+}
+
+@media screen and (max-width: 576px) {
+    .jugadas {
+        text-align: center;
+    }
+    img.cards-size {
+      width: 90px;
+    }
+    .github-corner {
+      display: none;
+    }
+    #puntaje-valor,
+    #intentos-valor {
+      width: 6%
+    }
+    #puntaje-texto {
+      width: 25%;
+    }
+    .github a {
+    text-decoration: none;
+    }
+    .github {
+    display: flex;
+    justify-content: center;
+    margin-top: 25px;
+    }
+    .fa-github {
+      color: #fff;
+      font-size: 2em;
+    }
+}
+
+/* @media screen and (max-width: 767px) {
+    #puntaje-texto {
+      width:25%
+    }
+} */
