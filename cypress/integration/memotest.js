@@ -59,6 +59,7 @@ context('Memotest', () => {
         cy.wait(1900)
         cy.get('#mensaje').should('not.be.visible')
         cy.wait(14000)
+        cy.visit(URL)
       })
 
       it('Pierde el juego', () => {

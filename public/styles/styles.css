@@ -98,12 +98,12 @@ height: 167px;
   justify-content: center;
 }
 
-div.cards-container {
+div.card-container {
   cursor: pointer;
   margin-top: 3px;
 }
 
-.cards-size {
+.card-size {
   width: 130px;
   border-radius: 4px;
 }
@@ -131,7 +131,7 @@ div.cards-container {
     .jugadas {
         text-align: center;
     }
-    img.cards-size {
+    img.card-size {
       width: 90px;
     }
     .github-corner {
