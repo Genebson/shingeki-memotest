@@ -1,16 +1,16 @@
 const $form = document.querySelector('#form')
 const $memotest = document.querySelector('#memotest')
-const $cartas = document.querySelectorAll('.cards')
+const $cartas = document.querySelectorAll('.card-size')
 const cartaDeEspalda = 'src/imgs/cards/card-backwards.png'
 const cartas = [
-  { nombre: 'armin', id: '1', src: 'src/imgs/cards/armin.jpg' },
-  { nombre: 'eren', id: '2', src: 'src/imgs/cards/eren.jpg' },
-  { nombre: 'erwin', id: '3', src: 'src/imgs/cards/erwin.jpg' },
-  { nombre: 'historia', id: '4', src: 'src/imgs/cards/historia.jpg' },
-  { nombre: 'levi', id: '5', src: 'src/imgs/cards/levi.png' },
-  { nombre: 'mikasa', id: '6', src: 'src/imgs/cards/mikasa.jpg' },
-  { nombre: 'reiner', id: '7', src: 'src/imgs/cards/reiner.jpg' },
-  { nombre: 'sasha', id: '8', src: 'src/imgs/cards/sasha.jpg' }
+  { nombre: 'armin', id: '1', src: './src/imgs/cards/armin.jpg' },
+  { nombre: 'eren', id: '2', src: './src/imgs/cards/eren.jpg' },
+  { nombre: 'erwin', id: '3', src: './src/imgs/cards/erwin.jpg' },
+  { nombre: 'historia', id: '4', src: './src/imgs/cards/historia.jpg' },
+  { nombre: 'levi', id: '5', src: './src/imgs/cards/levi.png' },
+  { nombre: 'mikasa', id: '6', src: './src/imgs/cards/mikasa.jpg' },
+  { nombre: 'reiner', id: '7', src: './src/imgs/cards/reiner.jpg' },
+  { nombre: 'sasha', id: '8', src: './src/imgs/cards/sasha.jpg' }
 ]
 
 let intentos = 0
@@ -44,19 +44,27 @@ function voltearCartas(e) {
   const $carta = e.currentTarget
   const cartaData = cartas.find(carta => carta.id === $carta.dataset.id)
 
-  if ($carta.className === 'cards cards-size') {
+  if ($carta.className === 'card-size') {
     $carta.classList.add('card-back')
     cardFlipSound.play()
     $carta.src = cartaData.src
   } else {
-    $carta.className == "cards cards-size"
+    $carta.className == "card-size"
   }
 
   $elementosVolteados.push($carta)
   $carta.removeEventListener('click', voltearCartas)
   if ($elementosVolteados.length === 2) {
     compararCartas()
+    $memotest.style.pointerEvents = 'none'
+    setTimeout(function () {
+      activarTablero()
+    }, 500)
   }
+}
+
+function activarTablero() {
+  $memotest.style.pointerEvents = 'auto'
 }
 
 function eliminarElementos() {
@@ -74,7 +82,7 @@ function compararCartas() {
       actualizarPuntaje(puntaje)
       correctSound.play()
     }, 500)
-    bloquearCartasClickeadas()
+    // bloquearCartasClickeadas()
     mensajeAutomatico(mensajeCartasIguales())
     compararPersonajes()
   } else if ($primeraId !== $segundaId) {
@@ -132,10 +140,10 @@ function ocultarCartas() {
   $segundoElemento.addEventListener('click', voltearCartas)
 }
 
-function bloquearCartasClickeadas() {
-  $elementosVolteados[0].removeEventListener('click', voltearCartas)
-  $elementosVolteados[1].removeEventListener('click', voltearCartas)
-}
+// function bloquearCartasClickeadas() {
+//   $elementosVolteados[0].removeEventListener('click', voltearCartas)
+//   $elementosVolteados[1].removeEventListener('click', voltearCartas)
+// }
 
 function mensajeAutomatico(mensaje) {
   const $p = document.querySelector('#mensaje')
